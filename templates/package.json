@@ -1,0 +1,14 @@
+{
+  "name": "{%= o.appname %}",
+  "version": "0.1.0",
+  "description": "",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.18",
+    "extract-loader": "^1.0.2",
+    "file-loader": "^1.1.6",
+    "html-loader": "^0.5.5",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "license": "MIT"
+}

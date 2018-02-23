@@ -1,0 +1,15 @@
+{
+  "name": "generator-staticapp",
+  "version": "0.1.0",
+  "description": "webpack template for static pages development",
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "blueimp-tmpl": "^3.11.0",
+    "yeoman-generator": "^1.0.0"
+  }
+}

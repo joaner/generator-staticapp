@@ -16,9 +16,20 @@ module.exports = class extends Generator {
       type: String,
     })
 
+    // template
+    this.option('html', {
+      desc: 'enable html',
+      default: true,
+    })
     this.option('pug', {
       desc: 'enable pug/jade',
       default: false,
+    })
+
+    // style
+    this.option('css', {
+      desc: 'enable css',
+      default: true,
     })
     this.option('less', {
       desc: 'enable Less',
@@ -36,28 +47,60 @@ module.exports = class extends Generator {
     }
   }
 
-  _write(filename, data) {
-    var template = fs.readFileSync(this.templatePath(filename), { encoding: 'utf-8' })
-    var content = tmpl(template, data)
-    return fs.writeFileSync(this.destinationPath(filename), content)
+  _write(sourceFile, targetFile) {
+    var ext = path.extname(sourceFile)
+
+    // if is template
+    if (['.html', '.json'].indexOf(ext) !== -1) {
+      var template = fs.readFileSync(sourceFile, { encoding: 'utf-8' })
+      var content = tmpl(template, this.options)
+      return fs.writeFileSync(targetFile, content)
+    } {
+      // copyFileSync
+      var content = fs.readFileSync(sourceFile)
+      return fs.writeFileSync(targetFile, content)
+    }
   }
 
-  writing() {
-    this._write('package.json', {
-      appname: this.options.name,
+  _glob(relativePath) {
+    var self = this
+
+    // template path
+    var realpath = this.templatePath(relativePath)
+
+    fs.readdirSync(realpath).forEach(function(subpath) {
+      var relativeSubPath = path.join(relativePath, subpath)
+      var realSubPath = self.templatePath(relativeSubPath)
+      var stat = fs.lstatSync(realSubPath)
+
+      var realTargetPath = self.destinationPath(relativeSubPath)
+      if (stat.isFile()) {
+        var ext = path.extname(realSubPath).slice(1)
+
+        if (self.options[ext] || relativePath !== 'pages') {
+          self._write(realSubPath, realTargetPath)
+        }
+      } else if (stat.isDirectory()) {
+        if (!fs.existsSync(realTargetPath)) {
+          fs.mkdirSync(realTargetPath)
+        }
+
+        self._glob(relativeSubPath)
+      }
     })
   }
 
-  installPug() {
-    if (this.options.pug) {
-      this.npmInstall(['pug-html-loader'], { 'save-dev': true });
-    }
-  }
+  writing() {
+    this._glob('.')
 
-  installLess() {
+    var pkgs = []
     if (this.options.less) {
-      this.npmInstall(['less-loader'], { 'save-dev': true });
+      pkgs.push('less-loader')
     }
+    if (this.options.pug) {
+      pkgs.push('pug-html-loader')
+    }
+    this.npmInstall(pkgs, { 'save-dev': true })
   }
 
 }

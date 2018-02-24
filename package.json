@@ -1,5 +1,5 @@
 {
-  "name": "generator-staticapp",
+  "name": "generator-webpack-staticapp",
   "version": "0.1.0",
   "description": "webpack template for static pages development",
   "files": [

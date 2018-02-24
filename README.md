@@ -4,15 +4,15 @@ webpack template for static pages development based on [yeoman](http://yeoman.io
 
 ## Install
 
-`yo` can generate this project `generator-staticapp`
+`yo` can generate this project `generator-webpack-staticapp`
 ```bash
-npm install -g yo generator-staticapp
+npm install -g yo generator-webpack-staticapp
 ```
 
-## Usage 
+## Usage
 
 ```bash
-yo staticapp [options] <name>
+yo webpack-staticapp [options] <name>
 ```
 The installer will automatically create subdirectory use the `name`
 
@@ -31,7 +31,7 @@ The installer will automatically create subdirectory use the `name`
 ## Examples
 
 ```
-$ yo staticapp myapp --pug --less
+$ yo webpack-staticapp myapp --pug --less
 $ tree myapp
 .
 ├── package-lock.json

@@ -3,13 +3,21 @@
   "version": "0.1.0",
   "description": "webpack template for static pages development",
   "files": [
-    "generators"
+    "templates"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaner/generator-staticapp.git"
+  },
   "keywords": [
     "yeoman-generator"
   ],
   "dependencies": {
     "blueimp-tmpl": "^3.11.0",
     "yeoman-generator": "^1.0.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/joaner/generator-staticapp/issues"
+  },
+  "homepage": "https://github.com/joaner/generator-staticapp#readme"
 }
